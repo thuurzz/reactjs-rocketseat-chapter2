@@ -4,6 +4,7 @@ import { GlobalStyle } from "./styles/global";
 import { createServer } from "miragejs";
 import Modal from "react-modal";
 import { useState } from "react";
+import { NewTransactionModal } from "./components/NewTransactionModal";
 
 createServer({
   routes() {
@@ -41,12 +42,10 @@ export function App() {
       <GlobalStyle />
       <Header onOpenNewTransactionModel={handleOpenNewTransactionModal} />
       <Dashboard />
-      <Modal
+      <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransactionModal}
-      >
-        <h2>Cadastrar Transação</h2>
-      </Modal>
+        onClose={handleCloseNewTransactionModal}
+      />
     </>
   );
 }
