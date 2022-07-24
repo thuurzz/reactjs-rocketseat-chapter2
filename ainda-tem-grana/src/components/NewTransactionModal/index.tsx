@@ -30,7 +30,8 @@ export function NewTransactionModal({
       category,
     };
 
-    api.post("/transactions", data)
+    api.post("/transaction", data);
+    
   }
 
   return (
