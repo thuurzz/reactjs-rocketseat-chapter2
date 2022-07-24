@@ -5,9 +5,7 @@ import { createServer, Model } from "miragejs";
 import Modal from "react-modal";
 import { useState } from "react";
 import { NewTransactionModal } from "./components/NewTransactionModal";
-import {
-  TransactionsProvider,
-} from "./TransactionsContext";
+import { TransactionsProvider } from "./TransactionsContext";
 
 createServer({
   models: {
@@ -30,7 +28,7 @@ createServer({
           title: "Aluguel",
           type: "withdraw",
           category: "Casa",
-          amount: 1188,
+          amount: 1000,
           createdAt: new Date("2022-02-12 11:00:00"),
         },
       ],
