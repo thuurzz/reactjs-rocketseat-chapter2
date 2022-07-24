@@ -4,7 +4,6 @@ import { TransactionsContext } from "../../TransactionsContext";
 
 export function TransactionTable() {
   const { transactions } = useContext(TransactionsContext);
-  console.log(transactions);
   return (
     <Container>
       <table>

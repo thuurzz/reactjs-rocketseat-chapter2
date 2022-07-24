@@ -21,18 +21,21 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransaction] = useState<Transaction[]>([]);
 
   useEffect(() => {
+    handleLoadTransactions();
+  }, []);
+
+  function handleLoadTransactions() {
     api
       .get("transactions")
       .then((response) => setTransaction(response.data.transactions));
-  }, []);
+  }
 
   async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post("/transactions", {
       ...transactionInput,
       createdAt: new Date(),
     });
-    const { transaction } = response.data;
-    setTransaction([...transactions, transaction]);
+    handleLoadTransactions();
   }
 
   return (
