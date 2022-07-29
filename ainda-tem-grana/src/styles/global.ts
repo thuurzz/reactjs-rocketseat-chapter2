@@ -4,10 +4,10 @@ export const GlobalStyle = styled.createGlobalStyle`
   :root {
     --background: #f0f2f5;
     --red: #e52e54;
-    --blue: #5429cc;
+    --blue: #5995fd;
     --green: #33cc95;
 
-    --blue-light: #6933ff;
+    --blue-light: #70A4FD;
 
     --text-title: #363f5f;
     --text-body: #969cb3;
