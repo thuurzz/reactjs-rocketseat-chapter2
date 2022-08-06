@@ -1,8 +1,9 @@
 import { Container } from "./styles";
 import { useTransactions } from "../../hooks/useTransactionsContext";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 export function TransactionTable() {
-  const { transactions } = useTransactions();
+  const { transactions, deleteTransaction } = useTransactions();
   return (
     <Container>
       <table>
@@ -12,12 +13,13 @@ export function TransactionTable() {
             <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {transactions.map((transaction) => {
             return (
-              <tr key={transaction.id}>
+              <tr key={transaction._id}>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
                   {new Intl.NumberFormat("pt-BR", {
@@ -30,6 +32,11 @@ export function TransactionTable() {
                   {new Intl.DateTimeFormat("pt-BR").format(
                     new Date(transaction.createdAt)
                   )}
+                </td>
+                <td>
+                  <button onClick={() => deleteTransaction(transaction._id)}>
+                    <DeleteForeverOutlinedIcon />
+                  </button>
                 </td>
               </tr>
             );

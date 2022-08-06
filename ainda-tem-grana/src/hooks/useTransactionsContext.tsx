@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Transaction } from "../models/Transaction";
 import { api } from "../services/api";
 
-type TransactionInput = Omit<Transaction, "id" | "createdAt">;
+type TransactionInput = Omit<Transaction, "_id" | "createdAt">;
 
 interface TransactionsProviderProps {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -25,9 +26,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }, []);
 
   function handleLoadTransactions() {
-    api
-      .get("transactions")
-      .then((response) => setTransaction(response.data.transactions));
+    api.get("transactions").then((response) => setTransaction(response.data));
   }
 
   async function createTransaction(transactionInput: TransactionInput) {
@@ -38,8 +37,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     handleLoadTransactions();
   }
 
+  async function deleteTransaction(id: string) {
+    await api.delete(`/transactions/${id}`);
+    handleLoadTransactions();
+  }
+
   return (
-    <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+    <TransactionsContext.Provider
+      value={{ transactions, createTransaction, deleteTransaction }}
+    >
       {children}
     </TransactionsContext.Provider>
   );
